@@ -9,7 +9,7 @@ const {
   validateBorrowRequest, 
   validateReturnRequest 
 } = require('../validators/borrowValidator');
-const { authenticate } = require('../middleware/auth');
+const { authenticate } = require('../middleware/authMiddleware');
 
 // [BOR-06] Setup routes
 router.post('/borrow', authenticate, validateBorrowRequest, borrowBookController);
