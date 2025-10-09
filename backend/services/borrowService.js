@@ -71,6 +71,69 @@ const borrowBook = async (userId, bookId, Book) => {
   }
 };
 
+// [BOR-04] Service to return a book - Developer 3
+// Mark status returned, increase copies
+const returnBook = async (borrowRecordId, Book) => {
+  try {
+    // Find the borrow record
+    const borrowRecord = await BorrowRecord.findById(borrowRecordId);
+    
+    if (!borrowRecord) {
+      return {
+        success: false,
+        message: 'Borrow record not found',
+        statusCode: 404
+      };
+    }
+
+    // Check if already returned
+    if (borrowRecord.status === 'returned') {
+      return {
+        success: false,
+        message: 'This book has already been returned',
+        statusCode: 400
+      };
+    }
+
+    // Find the book
+    const book = await Book.findById(borrowRecord.bookId);
+    if (!book) {
+      return {
+        success: false,
+        message: 'Book not found',
+        statusCode: 404
+      };
+    }
+
+    // [BOR-04] Mark status as returned
+    borrowRecord.status = 'returned';
+    borrowRecord.returnDate = new Date();
+
+    // [BOR-04] Increase available copies
+    book.availableCopies += 1;
+
+    // Save both records
+    await borrowRecord.save();
+    await book.save();
+
+    return {
+      success: true,
+      message: 'Book returned successfully',
+      data: borrowRecord,
+      statusCode: 200
+    };
+  } catch (error) {
+    console.error('Error in returnBook service:', error);
+    return {
+      success: false,
+      message: 'Error returning book',
+      error: error.message,
+      statusCode: 500
+    };
+  }
+};
+
 module.exports = {
-  borrowBook
+  borrowBook,
+  returnBook
 };
