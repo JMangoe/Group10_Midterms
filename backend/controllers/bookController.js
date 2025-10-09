@@ -3,7 +3,7 @@
 const { validateBook } = require('../validators/Validators');
 const { createBook: createBookService } = require('../services/Services');
 const { updateBook: updateBookService } = require('../services/bookService');
-const Book = require('../model/Model');
+const Book = require('../model/bookModel');
 
 //create
 module.exports.createBook = async (req, res) => {
