@@ -52,7 +52,33 @@ const returnBookController = async (req, res) => {
   }
 };
 
+// [BOR-06] Controller to get user's borrow records - Developer 3
+const getUserBorrowsController = async (req, res) => {
+  try {
+    const userId = req.user.id; // Assuming user ID comes from auth middleware
+    const BorrowRecord = require('../model/BorrowRecord');
+    
+    const borrows = await BorrowRecord.find({ userId: userId })
+      .populate('bookId', 'title author')
+      .sort({ borrowDate: -1 });
+    
+    return res.status(200).json({
+      success: true,
+      message: 'Borrow records retrieved successfully',
+      data: borrows
+    });
+  } catch (error) {
+    console.error('Error in getUserBorrowsController:', error);
+    return res.status(500).json({
+      success: false,
+      message: 'Internal server error',
+      error: error.message
+    });
+  }
+};
+
 module.exports = {
   borrowBookController,
-  returnBookController
+  returnBookController,
+  getUserBorrowsController
 };
