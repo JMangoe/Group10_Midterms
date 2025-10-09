@@ -1,10 +1,7 @@
 //[BOOK-03] Implement service to create a book.
 
-<<<<<<< HEAD
-const Book = require('../model/Model');
-=======
 const Book = require('../model/bookModel');
->>>>>>> 8cbe05a (BOOK-01: Renaming file)
+
 
 module.exports.createBook = async (book) => {
     try {
@@ -26,11 +23,7 @@ module.exports.createBook = async (book) => {
 
 //[BOOK-04] Implement service to update book details and available Copies.
 
-<<<<<<< HEAD
-const Book = require('../model/Model');
-=======
 const Book = require('../model/bookModel');
->>>>>>> 8cbe05a (BOOK-01: Renaming file)
 
 module.exports.updateBook = async (id, book) => {
     try {
