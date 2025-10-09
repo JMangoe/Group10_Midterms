@@ -6,12 +6,10 @@ const userRoutes = require('./routes/userRoutes');
 
 const app = express();
 
-// Middleware
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// Database connection
 const MONGODB_URI = process.env.MONGODB_URI || 'mongodb://localhost:27017/library_system';
 
 mongoose.connect(MONGODB_URI)
@@ -23,10 +21,8 @@ mongoose.connect(MONGODB_URI)
     process.exit(1);
   });
 
-// Routes
 app.use('/api', userRoutes);
 
-// Health check route
 app.get('/', (req, res) => {
   res.json({
     success: true,
@@ -35,7 +31,6 @@ app.get('/', (req, res) => {
   });
 });
 
-// Error handling middleware
 app.use((err, req, res, next) => {
   console.error(err.stack);
   res.status(500).json({
@@ -45,7 +40,6 @@ app.use((err, req, res, next) => {
   });
 });
 
-// 404 handler
 app.use((req, res) => {
   res.status(404).json({
     success: false,
@@ -53,7 +47,6 @@ app.use((req, res) => {
   });
 });
 
-// Start server
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
