@@ -30,12 +30,13 @@ const borrowBookController = async (req, res) => {
 // [BOR-05] Controller for return action - Developer 3
 const returnBookController = async (req, res) => {
   try {
-    const { borrowRecordId } = req.body;
+    const { borrowRecordId, returnDate } = req.body;
     
     // Assuming Book model will be passed or imported
     const Book = require('../model/Model').Book || require('../model/Book');
     
-    const result = await returnBook(borrowRecordId, Book);
+    // If returnDate is provided, use it; otherwise, it will default to current date in the service
+    const result = await returnBook(borrowRecordId, Book, returnDate);
     
     return res.status(result.statusCode).json({
       success: result.success,
