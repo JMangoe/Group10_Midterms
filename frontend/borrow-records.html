@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Borrow Records - Library System</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- [FE2-07] Navigation Bar -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-brand">
+                <h1>📚 Library System</h1>
+            </div>
+            <ul class="nav-links">
+                <li><a href="index.html" class="nav-link">Home</a></li>
+                <li><a href="login.html" class="nav-link">Login</a></li>
+                <li><a href="books.html" class="nav-link">Books</a></li>
+                <li><a href="borrow.html" class="nav-link">Borrow</a></li>
+                <li><a href="borrow-records.html" class="nav-link active">Records</a></li>
+            </ul>
+            <button class="nav-toggle" id="navToggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </nav>
+
+    <main class="container">
+        <h2 class="page-title">Borrow Records</h2>
+
+        <!-- [FE2-04] Filter Section -->
+        <section class="filter-section">
+            <h3>Filter Records</h3>
+            <div class="filter-container">
+                <div class="form-group">
+                    <label for="filterUser">Filter by User ID:</label>
+                    <input type="number" id="filterUser" placeholder="Enter user ID" class="filter-input">
+                </div>
+                <div class="form-group">
+                    <label for="filterStatus">Filter by Status:</label>
+                    <select id="filterStatus" class="filter-input">
+                        <option value="">All</option>
+                        <option value="borrowed">Borrowed</option>
+                        <option value="returned">Returned</option>
+                    </select>
+                </div>
+                <div class="filter-actions">
+                    <button id="applyFilterBtn" class="btn btn-primary">Apply Filter</button>
+                    <button id="clearFilterBtn" class="btn btn-secondary">Clear Filter</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- [FE2-04] Borrow Records Table -->
+        <section class="records-section">
+            <h3>All Borrow Records</h3>
+            <div id="recordsContainer">
+                <table class="records-table">
+                    <thead>
+                        <tr>
+                            <th>Record ID</th>
+                            <th>User ID</th>
+                            <th>Book ID</th>
+                            <th>Book Title</th>
+                            <th>Borrow Date</th>
+                            <th>Return Date</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody id="recordsTableBody">
+                        <tr>
+                            <td colspan="7" class="no-data">Loading records...</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- [FE2-04] User-specific Records Section -->
+        <section class="user-records-section">
+            <h3>View User's Borrow History</h3>
+            <div class="user-search-container">
+                <input type="number" id="userIdInput" placeholder="Enter User ID" class="search-input">
+                <button id="viewUserRecordsBtn" class="btn btn-primary">View History</button>
+            </div>
+            
+            <div id="userRecordsResult" style="display: none;">
+                <h4 id="userRecordsTitle"></h4>
+                <table class="records-table">
+                    <thead>
+                        <tr>
+                            <th>Record ID</th>
+                            <th>Book Title</th>
+                            <th>Borrow Date</th>
+                            <th>Return Date</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody id="userRecordsTableBody">
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    </main>
+
+    <script src="nav.js"></script>
+    <script src="borrow-records.js"></script>
+</body>
+</html>
