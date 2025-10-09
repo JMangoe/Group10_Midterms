@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Books Management - Library System</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- [FE2-07] Navigation Bar -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-brand">
+                <h1>📚 Library System</h1>
+            </div>
+            <ul class="nav-links">
+                <li><a href="index.html" class="nav-link">Home</a></li>
+                <li><a href="login.html" class="nav-link">Login</a></li>
+                <li><a href="books.html" class="nav-link active">Books</a></li>
+                <li><a href="borrow.html" class="nav-link">Borrow</a></li>
+                <li><a href="borrow-records.html" class="nav-link">Records</a></li>
+            </ul>
+            <button class="nav-toggle" id="navToggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </nav>
+
+    <main class="container">
+        <h2 class="page-title">Book Management</h2>
+
+        <!-- [FE2-01] Add Book Form UI (for admin) -->
+        <section class="form-section" id="addBookSection">
+            <h3>Add New Book</h3>
+            <form id="addBookForm" class="book-form">
+                <div class="form-group">
+                    <label for="bookTitle">Title <span class="required">*</span></label>
+                    <input type="text" id="bookTitle" name="title" required placeholder="Enter book title">
+                </div>
+
+                <div class="form-group">
+                    <label for="bookAuthor">Author <span class="required">*</span></label>
+                    <input type="text" id="bookAuthor" name="author" required placeholder="Enter author name">
+                </div>
+
+                <div class="form-group">
+                    <label for="bookCopies">Available Copies <span class="required">*</span></label>
+                    <input type="number" id="bookCopies" name="availableCopies" min="0" required placeholder="Enter number of copies">
+                </div>
+
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-primary">Add Book</button>
+                    <button type="reset" class="btn btn-secondary">Clear</button>
+                </div>
+            </form>
+        </section>
+
+        <!-- [FE2-05] Search/Filter for Books -->
+        <section class="search-section">
+            <h3>Search Books</h3>
+            <div class="search-container">
+                <input type="text" id="searchInput" placeholder="Search by title or author..." class="search-input">
+                <button id="searchBtn" class="btn btn-primary">Search</button>
+                <button id="clearSearchBtn" class="btn btn-secondary">Clear</button>
+            </div>
+        </section>
+
+        <!-- [FE2-02] Book List UI (with edit/delete options for admin) -->
+        <section class="book-list-section">
+            <h3>Book List</h3>
+            <div id="bookListContainer">
+                <table class="book-table">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Title</th>
+                            <th>Author</th>
+                            <th>Available Copies</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="bookTableBody">
+                        <!-- Books will be loaded here dynamically -->
+                        <tr>
+                            <td colspan="5" class="no-data">No books available. Add a book to get started.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- Edit Book Modal -->
+        <div id="editModal" class="modal">
+            <div class="modal-content">
+                <span class="close">&times;</span>
+                <h3>Edit Book</h3>
+                <form id="editBookForm" class="book-form">
+                    <input type="hidden" id="editBookId" name="id">
+                    
+                    <div class="form-group">
+                        <label for="editBookTitle">Title <span class="required">*</span></label>
+                        <input type="text" id="editBookTitle" name="title" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="editBookAuthor">Author <span class="required">*</span></label>
+                        <input type="text" id="editBookAuthor" name="author" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="editBookCopies">Available Copies <span class="required">*</span></label>
+                        <input type="number" id="editBookCopies" name="availableCopies" min="0" required>
+                    </div>
+
+                    <div class="form-actions">
+                        <button type="submit" class="btn btn-primary">Update Book</button>
+                        <button type="button" class="btn btn-secondary" id="cancelEdit">Cancel</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </main>
+
+    <script src="nav.js"></script>
+    <script src="books.js"></script>
+</body>
+</html>
