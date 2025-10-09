@@ -73,7 +73,7 @@ const borrowBook = async (userId, bookId, Book) => {
 
 // [BOR-04] Service to return a book - Developer 3
 // Mark status returned, increase copies
-const returnBook = async (borrowRecordId, Book) => {
+const returnBook = async (borrowRecordId, Book, returnDate = new Date()) => {
   try {
     // Find the borrow record
     const borrowRecord = await BorrowRecord.findById(borrowRecordId);
@@ -91,6 +91,27 @@ const returnBook = async (borrowRecordId, Book) => {
       return {
         success: false,
         message: 'This book has already been returned',
+        statusCode: 400
+      };
+    }
+
+    // [BOR-08] Validate return date
+    const parsedReturnDate = new Date(returnDate);
+    
+    // Check if return date is valid
+    if (isNaN(parsedReturnDate.getTime())) {
+      return {
+        success: false,
+        message: 'Invalid return date',
+        statusCode: 400
+      };
+    }
+
+    // Check if return date is before borrow date
+    if (parsedReturnDate < borrowRecord.borrowDate) {
+      return {
+        success: false,
+        message: 'Return date cannot be before borrow date',
         statusCode: 400
       };
     }
