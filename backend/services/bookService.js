@@ -1,6 +1,6 @@
 //[BOOK-03] Implement service to create a book.
 
-const Book = require('../model/Model');
+const Book = require('../model/bookModel');
 
 module.exports.createBook = async (book) => {
     try {
@@ -22,7 +22,7 @@ module.exports.createBook = async (book) => {
 
 //[BOOK-04] Implement service to update book details and available Copies.
 
-const Book = require('../model/Model');
+const Book = require('../model/bookModel');
 
 module.exports.updateBook = async (id, book) => {
     try {
