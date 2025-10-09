@@ -3,11 +3,7 @@
 const { validateBook } = require('../validators/Validators');
 const { createBook: createBookService } = require('../services/Services');
 const { updateBook: updateBookService } = require('../services/bookService');
-<<<<<<< HEAD
-const Book = require('../model/Model');
-=======
 const Book = require('../model/bookModel');
->>>>>>> 8cbe05a (BOOK-01: Renaming file)
 
 //create
 module.exports.createBook = async (req, res) => {
