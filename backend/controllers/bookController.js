@@ -1,7 +1,6 @@
 //[BOOK-05] Implement controllers for book CRUD.
 
 const { validateBook } = require('../validators/Validators');
-const { createBook: createBookService } = require('../services/Services');
 const { updateBook: updateBookService } = require('../services/bookService');
 const Book = require('../model/bookModel');
 
