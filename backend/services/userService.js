@@ -6,10 +6,10 @@ const registerUser = async (username, password, role = 'user') => {
     try {
         const existingUser = await User.findOne({ username });
         if (existingUser) {
-        return {
-            success: false,
-            message: 'Username already exists'
-        };
+            return {
+                success: false,
+                message: 'Username already exists'
+            };
         }
 
         const saltRounds = 10;
@@ -41,6 +41,56 @@ const registerUser = async (username, password, role = 'user') => {
     }
 };
 
+const authenticateUser = async (username, password) => {
+    try {
+        const user = await User.findOne({ username });
+        if (!user) {
+            return {
+                success: false,
+                message: 'Invalid username or password'
+            };
+        }
+
+        const isPasswordValid = await bcrypt.compare(password, user.password);
+        if (!isPasswordValid) {
+            return {
+                success: false,
+                message: 'Invalid username or password'
+            };
+        }
+
+        const token = jwt.sign(
+        {
+            id: user._id,
+            username: user.username,
+            role: user.role
+        },
+        process.env.JWT_SECRET || 'your-secret-key-change-this-in-production',
+        {
+            expiresIn: '24h'
+        }
+        );
+
+        return {
+            success: true,
+            message: 'Login successful',
+            token,
+            user: {
+                id: user._id,
+                username: user.username,
+                role: user.role
+            }
+        };
+    } catch (error) {
+        return {
+            success: false,
+            message: 'Error authenticating user',
+            error: error.message
+        };
+    }
+};
+
 module.exports = {
-    registerUser
+    registerUser,
+    authenticateUser
 };
